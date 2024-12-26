@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Posts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- FontAwesome -->
+    <style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+    
+    body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fdfdfd;
+    
+    color: #444;
+    }
+    
+    h1 {
+    text-align: center;
+    font-size:1.5rem;
+    font-weight: 700;
+    color: #888;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background:#f1f1f1;
+    border-radius:10px;
+    padding :10px;
+    }
+    
+    .post-card {
+    background: linear-gradient(135deg, #ffffff, #f7f7f7);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin: 0 10px 30px 10px;
+    padding: 20px;
+    
+    transition: all 0.3s ease-in-out;
+    }
+    
+    .post-card:hover {
+    
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .post-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    }
+    
+    .post-header img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #f7f7f7;
+    transition: border 0.3s ease;
+    }
+    
+    .post-header img:hover {
+    border-color: #008CBA;
+    }
+    
+    .post-username {
+    font-weight: 700;
+    font-size: 16px;
+    color: #333;
+    }
+    
+    .post-timestamp {
+    font-size: 13px;
+    color: #999;
+    }
+    
+    .post-content {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #555;
+    line-height: 1.7;
+    font-family: 'Roboto', sans-serif;
+    }
+    
+    .post-photo {
+    margin-top: 20px;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 280px;
+    border-radius: 12px;
+    opacity: 0.9;
+    transition: opacity 0.3s ease-in-out;
+    }
+    
+    .post-photo:hover {
+    opacity: 1;
+    }
+    
+    .post-footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+    
+    .like-button {
+    cursor: pointer;
+    padding: 12px 18px;
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    }
+    
+    .like-button:hover {
+    background-color: #005f73;
+    transform: scale(1.1);
+    }
+    
+    .like-button.liked {
+    background-color: #e0245e;
+    }
+    
+    .like-count {
+    background-color: #008CBA;
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-weight: bold;
+    font-size: 18px;
+    }
+    
+    .delete-icon {
+    cursor: pointer;
+    color: #e0245e;
+    font-size: 22px;
+    transition: all 0.3s ease;
+    }
+    
+    .delete-icon:hover {
+    transform: scale(1.2);
+    color: #ff4444;
+    }
+    
+    .login-form, .logout-button {
+    text-align: center;
+    margin: 10px auto;
+    width: 100%;
+    max-width: 450px;
+    padding: 25px;
+    background:transparent;
+    border-radius: 15px;
+    
+    }
+    
+    .login-form:hover, .logout-button:hover {
+    
+    }
+    
+    .login-form input {
+    width:100%;
+    margin-bottom: 15px;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    }
+    
+    .login-form input:focus {
+    border-color: #008CBA;
+    outline: none;
+    }
+    
+    .login-form button {
+    width: 100%;
+    padding: 14px;
+    background-color:tomato;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    }
+    
+    .login-form button:hover {
+    background-color: #006f99;
+    
+    }
+    
+    .login-form p {
+    margin-top: 12px;
+    font-size: 15px;
+    color: #999;
+    }
+    
+    .login-form a {
+    color: #008CBA;
+    text-decoration: none;
+    }
+    
+    .login-form a:hover {
+    text-decoration: underline;
+    }
+    
+    .logout-button {
+    width: 100%;
+    padding: 14px;
+    background-color: #e0245e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    }
+    
+    .logout-button:hover {
+    background-color: #d51e52;
+    transform: scale(1.05);
+    }
+    
+    h4{
+    color:#777;
+    padding :10px;
+    text-align :left;
+    
+    }
+    </style>
+    
+</head>
+<body>
+    <h1>Your Posts</h1><button
+    style="
+    
+    color:tomato;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    position:fixed;
+    right:0;
+    top:10px;
+    "
+    onclick="if (document.referrer) { window.location.href = document.referrer; } else { window.history.back(); }"
+    >
+    <i class="fa-solid fa-reply"></i>
+    
+    
+    Back
+    </button>
+
+    <!-- Login Form -->
+    <div class="login-form" id="login-form">
+        <h4> 🔴 প্রথমে সাইন ইন কর</h4>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button onclick="signIn()">Sign In</button>
+        <p>Don't have an account? <a href="#" onclick="showSignUpForm()">Sign Up</a></p>
+    </div>
+
+    <!-- Sign Up Form -->
+    <div class="login-form" id="signup-form" style="display: none;">
+        <h2>Sign Up</h2>
+        <input type="email" id="signup-email" placeholder="Email" required>
+        <input type="password" id="signup-password" placeholder="Password" required>
+        <button onclick="signUp()">Sign Up</button>
+        <p>Already have an account? <a href="#" onclick="showLoginForm()">Login</a></p>
+    </div>
+
+    <!-- Logout Button -->
+    
+
+    <div id="posts-container"></div>
+    
+    
+    
+    
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+        import { getDatabase, ref, get, update, remove, onValue } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+        import { getStorage } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-storage.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBsz-82MDaibWnIBUpoykrZHyJW7UMedX8",
+            authDomain: "movies-bee24.firebaseapp.com",
+            databaseURL: "https://movies-bee24-default-rtdb.firebaseio.com",
+            projectId: "movies-bee24",
+            storageBucket: "movies-bee24.appspot.com",
+            messagingSenderId: "1080659811750",
+            appId: "1:1080659811750:web:c1ef7d4dacc3ab17edc367"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const auth = getAuth(app);
+        const storage = getStorage(app);
+
+        // Display posts only after the user is signed in
+        function loadPosts() {
+            const postsRef = ref(db, 'posts');
+            const user = auth.currentUser;
+
+            if (user) {
+                const userId = user.uid;
+
+                get(postsRef).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const postsContainer = document.getElementById('posts-container');
+                        postsContainer.innerHTML = ''; // Clear previous posts
+
+                        snapshot.forEach((childSnapshot) => {
+                            const post = childSnapshot.val();
+                            const postId = childSnapshot.key;
+
+                            if (post.userId === userId) {
+                                const postElement = document.createElement('div');
+                                postElement.classList.add('post-card');
+
+                                // Get user details for profile photo
+                                const userRef = ref(db, `users/${post.userId}`);
+                                get(userRef).then((userSnapshot) => {
+                                    const userData = userSnapshot.val();
+                                    const userName = userData.name || 'Anonymous';
+                                    const userProfilePhoto = userData.profilePhoto || 'default-profile.png';
+
+                                    postElement.innerHTML = `
+                                        <div class="post-header">
+                                            <img src="${userProfilePhoto}" alt="Profile Photo" />
+                                            <div>
+                                                <div class="post-username">${userName}</div>
+                                                <div class="post-timestamp">${new Date(post.timestamp).toLocaleString()}</div>
+                                            </div>
+                                            <i class="fas fa-trash delete-icon" onclick="deletePost('${postId}')"></i>
+                                        </div>
+                                        <div class="post-content"><p>${post.text || ''}</p></div>
+                                        ${post.imageUrl ? `<div class="post-photo" style="background-image: url(${post.imageUrl});"></div>` : ''}
+                                        <div class="post-footer">
+                                            <button class="like-button ${post.likedBy && post.likedBy[userId] ? 'liked' : ''}" onclick="likePost('${postId}')">
+                                                <i class="fas fa-heart"></i>
+                                            </button>
+                                            <div class="like-count">${post.likeCount || 0}</div>
+                                        </div>
+                                    `;
+                                });
+
+                                postsContainer.appendChild(postElement);
+                            }
+                        });
+                    } else {
+                        console.log("No posts found!");
+                    }
+                }).catch((error) => {
+                    console.error("Error fetching posts:", error);
+                });
+            } else {
+                console.log("No user is logged in.");
+            }
+        }
+
+        // Sign In function
+        window.signIn = function() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in successfully
+                    console.log("Signed In!");
+                    loadPosts();
+                    document.getElementById('login-form').style.display = 'none';
+                    document.getElementById('signup-form').style.display = 'none';
+                    document.getElementById('logout-button').style.display = 'block';
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+
+        // Sign Up function
+        window.signUp = function() {
+            const email = document.getElementById("signup-email").value;
+            const password = document.getElementById("signup-password").value;
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    console.log("Signed Up!");
+                    loadPosts();
+                    document.getElementById('login-form').style.display = 'none';
+                    document.getElementById('signup-form').style.display = 'none';
+                    document.getElementById('logout-button').style.display = 'block';
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+
+        // Log out function
+        window.logOut = function() {
+            signOut(auth).then(() => {
+                console.log("Signed out!");
+                document.getElementById('logout-button').style.display = 'none';
+                document.getElementById('login-form').style.display = 'block';
+                loadPosts();
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
+
+        // Delete post function
+        window.deletePost = function(postId) {
+            const postRef = ref(db, 'posts/' + postId);
+            remove(postRef)
+                .then(() => {
+                    console.log("Post deleted successfully!");
+                    loadPosts();  // Reload the posts after deletion
+                })
+                .catch((error) => {
+                    console.error("Error deleting post:", error);
+                });
+        }
+
+        // Call loadPosts when the page loads
+        loadPosts();
+    </script>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <title>Edit Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-ites: center;
+      height: 100vh;
+    }
+    .profile-container {
+      background-color: #fff;
+      width: 90%;
+      max-width: 600px;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadw: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #777;
+      background:#fefefe;
+      padding:10px;
+      border-radius: 10px;
+      border:2px solid #ddd;
+    }
+    .step-card {
+      display: none;
+      opacity: 0;
+      padding:10px;
+      background:#fefefe;
+      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+      transform: translateX(-100%);
+      border:2px solid #ddd;
+      border-radius:10px;
+    }
+    .step-card.active {
+      display: block;
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .step-card h3 {
+      margin-bottom: 10px;
+      color: #555;
+      font-size: 1.2em;
+    }
+    .step-card input, .step-card textarea {
+      width: 93%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+    .step-card button {
+      background-color: #42B72A;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s;
+    }
+    .step-card button:hover {
+      background-color: #36a420;
+    }
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+    .navigation-buttons button {
+      background-color: #365899;
+      padding: 10px 20px;
+      border-radius: 5px;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    .navigation-buttons button:hover {
+      background-color: #4267B2;
+    }
+    .step-card .back-button {
+      background-color: #ccc;
+    }
+    .step-card .back-button:hover {
+      background-color: #aaa;
+    }
+    
+    
+    
+    .warning-box {
+    display: flex;
+    align-items: center;
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #ffeeba;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    }
+    .warning-box i {
+    margin-right: 10px;
+    }
+    
+    
+    
+  </style>
+</head>
+<body>
+
+
+
+<button
+  style="
+    
+    color:tomato;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px;
+    cursor: pointer;
+    border-radius: 5px;
+    position:fixed;
+    right:15px;
+    
+  "
+  onclick="if (document.referrer) { window.location.href = document.referrer; } else { window.history.back(); }"
+>
+<i class="fa-solid fa-reply"></i>
+
+
+  Back
+</button>
+
+
+
+
+  <div class="profile-container">
+    <h2>User details</h2>
+    <div class="step-card active" id="step-1">
+      <h3>Step 1: Name</h3>
+      <input type="text" id="name" placeholder="Enter your name" />
+      <div class="navigation-buttons">
+        <button onclick="goToNextStep(2)">Next</button>
+      </div>
+    </div>
+
+    <div class="step-card" id="step-2">
+      <h3>Step 2: Username</h3>
+      <input type="text" id="username" placeholder="Enter your username" />
+      <div class="navigation-buttons">
+        <button class="back-button" onclick="goToNextStep(1)">Back</button>
+        <button onclick="goToNextStep(3)">Next</button>
+      </div>
+    </div>
+
+    <div class="step-card" id="step-3">
+      <h3>Step 3: Phone Number</h3>
+      <input type="tel" id="phone" placeholder="Enter your phone number" />
+      <div class="navigation-buttons">
+        <button class="back-button" onclick="goToNextStep(2)">Back</button>
+        <button onclick="goToNextStep(4)">Next</button>
+      </div>
+    </div>
+
+    <div class="step-card" id="step-4">
+      <h3>Step 4: Date of Birth</h3>
+      <input type="date" id="dob" />
+      <div class="navigation-buttons">
+        <button class="back-button" onclick="goToNextStep(3)">Back</button>
+        <button onclick="goToNextStep(5)">Next</button>
+      </div>
+    </div>
+
+    <div class="step-card" id="step-5">
+      <h3>Step 5: Bio</h3>
+      <textarea id="bio" placeholder="Enter your bio"></textarea>
+      <div class="navigation-buttons">
+        <button class="back-button" onclick="goToNextStep(4)">Back</button>
+        <button onclick="saveProfile()">Save</button>
+      </div>
+    </div>
+    
+    <div>
+    
+    
+    
+    </div>
+    <div class="warning-box">
+    <i class="fas fa-exclamation-triangle"></i>
+    সতর্ক! আপনার তথ্য সঠিকভাবে পূর্ণ করুন,না হলে সমস্যা হবে। 
+    </div>
+    <div class="warning-box">
+    <i class="fas fa-exclamation-triangle"></i>
+    এটা সম্পূর্ণ হলে, ফেসবুকের মত প্রোফাইলে চাপ দিয়ে প্রোফাইল পেজে যাবেন, তারপর প্রোফাইল ফটো ও কভার ফটো আপলোড করবেন। 
+    </div>
+    
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBsz-82MDaibWnIBUpoykrZHyJW7UMedX8",
+      authDomain: "movies-bee24.firebaseapp.com",
+      databaseURL: "https://movies-bee24-default-rtdb.firebaseio.com",
+      projectId: "movies-bee24",
+      storageBucket: "movies-bee24.appspot.com",
+      messagingSenderId: "1080659811750",
+      appId: "1:1080659811750:web:c1ef7d4dacc3ab17edc367"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+
+    const nameInput = document.getElementById("name");
+    const usernameInput = document.getElementById("username");
+    const phoneInput = document.getElementById("phone");
+    const dobInput = document.getElementById("dob");
+    const bioInput = document.getElementById("bio");
+
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        db.ref(`users/${user.uid}`).once("value").then((snapshot) => {
+          const userData = snapshot.val();
+          nameInput.value = userData.name || "";
+          usernameInput.value = userData.username || "";
+          phoneInput.value = userData.phone || "";
+          dobInput.value = userData.dob || "";
+          bioInput.value = userData.bio || "";
+        });
+      } else {
+        window.location.href = "index.html";
+      }
+    });
+
+    function goToNextStep(step) {
+      document.querySelectorAll(".step-card").forEach((card) => {
+        card.classList.remove("active");
+        card.style.opacity = "0"; // Hide steps with animation
+        card.style.transform = "translateX(-100%)"; // Slide out
+      });
+
+      const nextStep = document.getElementById(`step-${step}`);
+      nextStep.classList.add("active");
+      setTimeout(() => {
+        nextStep.style.opacity = "1"; // Fade-in next step
+        nextStep.style.transform = "translateX(0)"; // Slide-in
+      }, 100); // Add a slight delay to trigger animation
+    }
+
+    function saveProfile() {
+      const user = auth.currentUser;
+      db.ref(`users/${user.uid}`).set({
+        name: nameInput.value,
+        username: usernameInput.value,
+        phone: phoneInput.value,
+        dob: dobInput.value,
+        bio: bioInput.value,
+      }).then(() => {
+        alert("Profile updated successfully!");
+        window.location.href = "index.html"; // Redirect back to profile page
+      });
+    }
+  </script>
+</body>
+</html>

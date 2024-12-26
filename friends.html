@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Friend Request System</title>
+  
+  <style type="text/css">
+  
+  /* General Styles */
+  body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  }
+  
+  /* Container Styles */
+  h2 {
+  text-align: center;
+  margin: 20px 0;
+  color: #333;
+  }
+  
+  #userContainer, #requestContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 1200px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* User Card Styles */
+  #userContainer div, #requestContainer div {
+  background-color: #eaeaea;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  width: 200px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  #userContainer div img, #requestContainer div img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  border: 2px solid #ddd;
+  }
+  
+  #userContainer div h3, #requestContainer div h3 {
+  font-size: 16px;
+  color: #555;
+  margin: 10px 0;
+  }
+  
+  /* Button Styles */
+  button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+  background-color: #0056b3;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 600px) {
+  #userContainer div, #requestContainer div {
+  width: 100%;
+  }
+  }
+  
+  
+  
+  
+  </style>
+  
+  
+  <script type="module" >
+  
+  // Import Firebase modules
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+  
+  // Firebase Configuration
+  const firebaseConfig = {
+  apiKey: "AIzaSyBsz-82MDaibWnIBUpoykrZHyJW7UMedX8",
+  authDomain: "movies-bee24.firebaseapp.com",
+  databaseURL: "https://movies-bee24-default-rtdb.firebaseio.com",
+  projectId: "movies-bee24",
+  storageBucket: "movies-bee24.appspot.com",
+  messagingSenderId: "1080659811750",
+  appId: "1:1080659811750:web:c1ef7d4dacc3ab17edc367"
+  };
+  
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
+  
+  // Logged-in user's ID (replace with actual logged-in user ID)
+  const userId = "loggedInUserId";
+  
+  // Reference to all users
+  const usersRef = ref(database, "users");
+  
+  // Show all users except the logged-in user
+  onValue(usersRef, (snapshot) => {
+  const users = snapshot.val();
+  const userContainer = document.getElementById("userContainer");
+  userContainer.innerHTML = ""; // Clear previous data
+  
+  for (let id in users) {
+  if (id !== userId) {
+  const user = users[id];
+  userContainer.innerHTML += `
+  <div>
+  <img src="${user.profilePhoto}" alt="${user.name}" />
+  <h3>${user.name}</h3>
+  <button onclick="sendFriendRequest('${id}')">Friend Request</button>
+  </div>
+  `;
+  }
+  }
+  });
+  
+  // Send a friend request
+  window.sendFriendRequest = function (toUserId) {
+  const userRequestsRef = ref(database, `users/${userId}/requests/sent`);
+  const receiverRequestsRef = ref(database, `users/${toUserId}/requests/received`);
+  
+  update(userRequestsRef, { [toUserId]: true });
+  update(receiverRequestsRef, { [userId]: true });
+  };
+  
+  // Show received friend requests
+  onValue(ref(database, `users/${userId}/requests/received`), (snapshot) => {
+  const requests = snapshot.val();
+  const requestContainer = document.getElementById("requestContainer");
+  requestContainer.innerHTML = ""; // Clear previous data
+  
+  for (let fromUserId in requests) {
+  onValue(ref(database, `users/${fromUserId}`), (userSnap) => {
+  const user = userSnap.val();
+  requestContainer.innerHTML += `
+  <div>
+  <img src="${user.profile}" alt="${user.name}" />
+  <h3>${user.name}</h3>
+  <button onclick="acceptFriendRequest('${fromUserId}')">Accept</button>
+  </div>
+  `;
+  });
+  }
+  });
+  
+  // Accept a friend request
+  window.acceptFriendRequest = function (fromUserId) {
+  const friendsRef = ref(database, `users/${userId}/friends`);
+  const senderFriendsRef = ref(database, `users/${fromUserId}/friends`);
+  const receivedRef = ref(database, `users/${userId}/requests/received/${fromUserId}`);
+  const sentRef = ref(database, `users/${fromUserId}/requests/sent/${userId}`);
+  
+  // Add to friends list
+  update(friendsRef, { [fromUserId]: true });
+  update(senderFriendsRef, { [userId]: true });
+  
+  // Remove request
+  update(receivedRef, null);
+  update(sentRef, null);
+  };
+  
+  
+  
+  </script>
+</head>
+<body>
+  <div>
+    <h2>Friend Requests</h2>
+    <div id="requestContainer"></div>
+  </div>
+
+  <div>
+    <h2>All Users</h2>
+    <div id="userContainer"></div>
+  </div>
+</body>
+</html>

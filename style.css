@@ -1,0 +1,426 @@
+body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .container {
+    width:100%;
+    margin: 0 auto;
+    
+    }
+    
+    .post-card {
+    border: 1px solid #ddd;
+    margin-bottom:5px;
+    padding: 10px;
+    background: #fcfcfc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+    
+    .post-header img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border:1px solid #999;
+    }
+    
+    .post-user {
+    display: flex;
+    align-items: center;
+    }
+    
+    .post-username {
+    font-weight: bold;
+    font-size:1.1rem;
+    color:#666;
+    }
+    
+    .post-timestamp {
+    font-size: 12px;
+    color: #777;
+    }
+    
+    .post-content {
+    margin-top: 10px;
+    max-height: 200px; /* 10 লাইনের মতো উচ্চতা নির্ধারণ করুন */
+    overflow: hidden;
+    position: relative;
+    z-index :0;
+    }
+    
+    .post-content:hover {
+    max-height: none;
+    }
+    
+    .show-more {
+    color: #007bff;
+    cursor: pointer;
+    position: absolute;
+    bottom: -px;
+    right: 0;
+    background: white;
+    padding: 5px;
+    font-size: 14px;
+    }
+    
+    
+    
+    .post-photo {
+    margin-top: 10px;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 370px;
+    border-radius: 5px;
+    }
+    
+    .post-footer {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    
+    }
+    
+    .like-button {
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color:#ededed;
+    border-radius:15px;
+    padding:2px 20px;
+    border: 1px solid #ccc;
+    color: #888;
+    font-size: 22px;
+    }
+    
+    .like-button.liked {
+    color: tomato;
+    }
+    
+    .like-count {
+    background-color: #f18d82;
+    color: white;
+    border-radius: 50%;
+    margin:0 3px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    }
+    
+    .three-dots {
+    cursor: pointer;
+    }
+    
+    .share-button {
+    color: #555;
+    cursor: pointer;
+    margin-left:55%;
+    background-color:#ededed;
+    border-radius:15px;
+    padding:8px 20px;
+    border: 1px solid #ccc;
+    }
+    
+    p {
+    color:#444;
+    word-wrap: break-word;
+    }
+    
+    .profile {
+    background :#ddd;
+    padding :10px;
+    text-decoration :none ;
+    
+    
+    }
+    
+    
+    
+    
+    
+    /* Additional Styles for Auth Forms */
+    #auth-section {
+      text-align: center;
+      margin-top: 150px;
+    }
+    #auth-text {
+      margin-bottom: 20px;
+    }
+    #sign-in-form, #sign-up-form {
+      display: none;
+    }
+    .auth-form{
+      padding:20px;
+      margin: 10px;
+      width:90%;
+      height:26px;
+      border-radius :15px;
+      border:1px solid #ddd;
+      background:#efefef;
+      outline:none;
+      
+    }
+    
+    #login-btn,#register-btn{
+    padding:10px;
+    margin: 5px;
+    width:92%;
+    height:40px;
+    border-radius :15px;
+    border:1px solid #ddd;
+    background:#8d97f4;
+    outline:none;
+    
+    }
+    
+   .logo-img{
+   
+   height:70px;
+   width:70px;
+   border-radius:50%;
+   margin-bottom:50px;
+   
+   
+   }
+   
+   .main-header,.main-header h2{
+   
+   display:none;
+   justify-content :space-between ;
+   
+   align-items:center;
+   
+   }
+    
+    
+    
+   /**home profile ***/
+    
+    .profile-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    background: #fff;
+    padding: 20px;
+    border-radius: px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    
+    transition: transform 0.3s;
+    }
+    
+    
+    
+    
+    
+    .profile-details {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    }
+    
+    .profile-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #ddd; /* লোড হওয়ার আগে ব্যাকগ্রাউন্ড */
+    border: 2px solid #008CBA;
+    cursor: pointer;
+    object-fit: cover;
+    }
+    
+    .profile-info {
+    display: flex;
+    flex-direction: column;
+    }
+    
+    .profile-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    }
+    
+    .profile-email {
+    font-size: 14px;
+    color: #666;
+    }
+    
+    .settings-icon {
+    font-size: 20px;
+    color: tomato;
+    cursor: pointer;
+    transition: color 0.3s;
+    
+    }
+    
+    .settings-con:hover {
+    color: #008CBA;
+    }
+    
+    a {
+    text-decoration: none;
+    color: inherit;
+    }
+    
+    
+    /*upload post css*/
+    /* Post Section */
+    .post-creation {
+    margin: auto;
+    width:100%;
+    max-width: 500px;
+    background-color: #ffffff;
+    padding:15px;
+    
+    
+    }
+    
+    .post-creation input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    font-size: 16px;
+    height:75px;
+    }
+    
+    .post-creation .file-input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    }
+    
+    .post-creation .file-input-container label {
+    display: flex;
+    align-items: center;
+    background-color: #008cba;
+    margin-top:7px;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    }
+    
+    .post-creation .file-input-container label:hover {
+    background-color: #005f7f;
+    }
+    
+    .post-creation .file-input-container label i {
+    margin-right: 5px;
+    width:100px;
+    
+    }
+    
+    .post-creation input[type="file"] {
+    display: none;
+    
+    }
+    
+    .post-creation button {
+    width: 30%;
+    
+    padding: 1px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    }
+    
+    .post-creation button:hover {
+    background-color: #1e7a34;
+    }
+    
+    .success-message {
+    text-align: center;
+    color: #28a745;
+    margin-top: 10px;
+    display: none;
+    }
+    
+    #post-image{
+    
+    width:170px;
+    
+    }
+    .button-flex{
+    
+    display:flex;
+    justify-content:space-between ;
+    height:37px;
+    }
+    
+   hr{
+    margin-top:8px;
+    border:2px solid #efefef;
+    
+    }
+    
+   .main{
+   width:100%;
+   
+   }
+   
+  .news{
+  margin:5px;
+  
+  text-align:center;
+  color:#999;
+  }
+   
+   
+  #show-sign-up{
+  
+  color:red;
+  
+  } 
+   
+   /* লোডিং অ্যানিমেশন স্টাইল */
+   #loading-animation {
+   display: none; /* ডিফল্টভাবে লুকানো */
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   width: 50px;
+   height: 50px;
+   border: 5px solid #f3f3f3;
+   border-top: 5px solid #3498db;
+   border-radius: 50%;
+   animation: spin 2s linear infinite;
+   }
+   
+   @keyframes spin {
+   0% { transform: translate(-50%, -50%) rotate(0deg); }
+   100% { transform: translate(-50%, -50%) rotate(360deg); }
+   }
+   
+   
+   #logout-btn{
+   
+   padding:10px;
+   margin:2px;
+   border-radius :10px;
+   background :#ddd;
+   width:99%;
+   
+   border:2px solid #ddd ;
+   
+   }
+   

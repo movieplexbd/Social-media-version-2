@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flasta</title>
+  <!-- Font Awesome CDN -->
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-storage-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  
+  
+  
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="menu-style.css">
+  <link rel="stylesheet" href="video.css">
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  
+    <style>
+    /* General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+    }
+
+    header {
+      background-color: #ffffff;
+      color: #333;
+      padding: 10px 17px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+       position:Absolute;
+      width:100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header .logo {
+      font-size: 30px;
+      font-weight: bold;
+      color:teal;
+     
+      border-radius:10px;
+      
+    }
+
+    header .search-btn {
+      padding: 10px;
+      background-color: tomato;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    header .search-btn i {
+      font-size: 18px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between ;
+      background-color: #ffffff;
+      padding: 18px;
+      
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top:0px;
+      z-index: 999;
+    }
+
+    nav button {
+      padding:2px;
+      background-color: transparent;
+      color: #777;
+      border: none;
+      cursor: pointer;
+      font-size:15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height:60px;
+      
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    nav button:hover,
+    nav button.active {
+      background-color: #f18d82;
+      color: white;
+      
+    }
+
+    main {
+      padding:0px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    section {
+      display: none;
+      font-size: 18px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    section.active {
+      display: block;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      nav button {
+        font-size: 23px;
+        width: 35px;
+        height: 35px;
+      }
+
+      header .logo {
+        font-size: 27px;
+      }
+
+      header .search-btn {
+        font-size: 14px;
+        padding: 9px;
+      }
+
+      section {
+        font-size: 16px;
+        padding:0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Auth Section -->
+ <div id="auth-section">
+   <div class="logo">
+   <img class="logo-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVxJL7A1V8XBXY7a2RVOyXgnghAyM57K4w1Q&usqp=CAU">
+   </div>
+
+   <!-- Sign In Form -->
+   <div id="sign-in-form" style="display: block;">
+     <input id="sign-in-email" type="email" placeholder="Enter Email" class="auth-form">
+     <input id="sign-in-password" type="password" placeholder="Enter Password" class="auth-form"><br>
+     <button id="login-btn" style="padding: 10px; margin: 5px; ; color: white;">Sign In</button>
+   </div>
+
+   <!-- Sign Up Form -->
+   <div id="sign-up-form">
+     <input id="sign-up-email" type="email" placeholder="Enter Email" class="auth-form">
+     <input id="sign-up-password" type="password" placeholder="Enter Password" class="auth-form"><br>
+     <button id="register-btn" style="padding: 10px; margin: 5px; background:tomato; color: white;">Sign Up</button>
+   </div>
+   
+   <div id="auth-text">
+   <p  id="auth-switch-text">Don't have an account? <a href="#" id="show-sign-up" >Sign Up</a></p>
+   </div>
+   <!-- লোডিং অ্যানিমেশন -->
+   <div id="loading-animation"></div>
+   
+ </div>
+
+
+
+
+
+
+
+
+
+
+
+<div id="home-section" style="display: none; margin-top:12%;">
+
+
+
+
+  <header>
+    <div class="logo">flastabook</div>
+    <button class="search-btn">
+      <i class="fas fa-search"></i>
+    </button>
+  </header>
+  <nav>
+    <button data-target="home" class="active" title="Home">
+      <i class="fas fa-home"></i>
+    </button>
+    <a href="friend.html" ><button >
+      <i class="fas fa-user-friends"></i>
+    </button></a>
+    
+    <button data-target="messenger" title="Messenger">
+      <i class="fas fa-envelope"></i>
+    </button>
+    <button data-target="video" title="video">
+      <i class="fas fa-video"></i>
+    </button>
+    <button data-target="menu" title="Menu">
+    <i class="fas fa-three"></i>
+    </button>
+    
+    
+  </nav>
+  <main>
+  
+  
+    <section id="home" class="active">
+       <div class="profile-container">
+       <div class="profile-details">
+       <a href="profile.html">
+       <img id="profile-photo" src="default-profile.png" alt="Profile Photo" class="profile-photo">
+       </a>
+       <div class="profile-info">
+       <a href="profile.html">
+       <div id="profile-name" class="profile-name">User Name</div>
+       </a>
+       <div id="profile-email" class="profile-email">example@example.com</div>
+       </div>
+       </div>
+       <a href="menu.html">
+       <i class="fas fa-cog settings-icon"></i>
+       </a>
+       </div>
+       
+       <div class="post-creation">
+       <input type="text" id="post-text" placeholder="What's on your mind?" />
+       <div class="button-flex">
+       
+       <div class="file-input-container">
+       <label for="post-image">
+       <i class="fas fa-image"></i> Upload Image
+       </label>
+       <input type="file" id="post-image" accept="image/*" />
+       
+       </div>
+       <button id="create-post" type="button">Post</button>
+       
+       
+       </div>
+       
+       <div id="success-message" class="success-message">Upload Successful!</div>
+       
+       </div>
+       
+       <hr>
+       
+       
+       
+       <div class="container">
+       <h2 class="news">News feeds</h2>
+       <div id="posts-container">
+       
+       <!-- Posts will be dynamically added here -->
+       </div>
+       </div>
+       
+    
+    
+    
+    
+    
+    
+    
+    </section>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+   
+    
+    
+    
+    <section id="messenger">পরবর্তীতে আপডেট করা হবে⁉️</section>
+    
+    
+    <section id="video">
+    <header>
+    Video Showcase
+    </header>
+    <div class="containers">
+    
+    <div id="videoContainer"></div>
+    </div>
+    <footer>
+    &copy; 2024 Video Showcase | All rights reserved.
+    </footer>
+    
+    </section>
+    
+    
+    
+    
+    <section id="menu">
+    <button id="logout-btn" style="background-color:#f18d82; color: white; ">LOGOUT</button>
+    
+    <div class="containers1">
+    <!-- Menu Header -->
+    
+    <!-- Menu items -->
+    <div class="menu-container">
+    <a href="update.html" >
+    <div class="menu-item">
+    <img src="https://img.icons8.com/ios-filled/50/FF4081/update-left-rotation.png" alt="Update">
+    <p>Update</p>
+    </div>
+    </a>
+    
+    <a href="post delete.html" >
+    <div class="menu-item">
+    <img src="https://img.icons8.com/ios-filled/50/4CAF50/delete.png" alt="Delete">
+    <p> Post Delete</p>
+    </div>
+    </a>
+    <a href="video.html" >
+    <div class="menu-item">
+    <img src="https://img.icons8.com/ios-filled/50/00BCD4/video-call.png" alt="Video">
+    <p>Video</p>
+    </div>
+    </a>
+    <div class="menu-item">
+    <img src="https://img.icons8.com/ios-filled/50/FF9800/facebook-group.png" alt="Groups">
+    <p>Groups</p>
+    </div>
+    <div class="menu-item">
+    <img src="https://img.icons8.com/ios-filled/50/2196F3/live.png" alt="Live">
+    <p>Live</p>
+    </div>
+    <div class="menu-item">
+    <img src="https://img.icons8.com/ios-filled/50/9C27B0/store.png" alt="Marketplace">
+    <p>Marketplace</p>
+    </div>
+    <div class="menu-item">
+    <img src="https://img.icons8.com/ios-filled/50/FF5722/page.png" alt="Pages">
+    <p>Pages</p>
+    </div>
+    <div class="menu-item">
+    <img src="https://img.icons8.com/ios-filled/50/8BC34A/memories.png" alt="Memories">
+    <p>Memories</p>
+    </div>
+    <div class="menu-item">
+    <img src="https://img.icons8.com/ios-filled/50/9E9E9E/checked.png" alt="Meta Verified">
+    <p>Meta Verified</p>
+    </div>
+    <div class="menu-item">
+    <img src="https://img.icons8.com/ios-filled/50/FF9800/archive.png" alt="Feeds">
+    <p>Feeds</p>
+    </div>
+    <div class="menu-item">
+    <img src="https://img.icons8.com/ios-filled/50/00BCD4/calendar.png" alt="Events">
+    <p>Events</p>
+    </div>
+    <div class="menu-item">
+    <img src="https://img.icons8.com/ios-filled/50/2196F3/gear.png" alt="Settings">
+    <p>Settings</p>
+    </div>
+    </div>
+    </div>
+    <!-- Warning Cards Section -->
+    <div class="warning-card">
+    <i class="fas fa-exclamation-circle"></i>
+    <div class="message">
+    <strong>Warning:</strong>  প্রোফাইল আপডেট করলে, মেইন প্রোফাইলে ঢুকে প্রোফাইল পিকচার আবার আপডেট করতে হবে,নয়তোবা প্রোফাইল পিকচার দেখা যাবে না। 
+    </div>
+    </div>
+    
+    <div class="warning-card">
+    <i class="fas fa-info-circle"></i>
+    <div class="message">
+    <strong>Info:</strong> Make sure your profile is updated for better security.
+    </div>
+    </div>
+    
+    <div class="warning-card">
+    <i class="fas fa-lock"></i>
+    <div class="message">
+    <strong>Security Tip:</strong> Always use a strong and unique password.
+    </div>
+    </div>
+    
+    
+    
+    
+    
+    </section>
+    
+  </main>
+  
+  </div>
+  
+  <script>
+    // JavaScript for Navigation
+    const buttons = document.querySelectorAll("nav button");
+    const sections = document.querySelectorAll("main section");
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        // Remove active class from all buttons and sections
+        buttons.forEach(btn => btn.classList.remove("active"));
+        sections.forEach(section => section.classList.remove("active"));
+
+        // Add active class to clicked button and corresponding section
+        button.classList.add("active");
+        document.getElementById(button.dataset.target).classList.add("active");
+      });
+    });
+  </script>
+  
+  
+  
+  
+  
+  
+  <script>
+  const firebaseConfig = {
+  apiKey: "AIzaSyBsz-82MDaibWnIBUpoykrZHyJW7UMedX8",
+  authDomain: "movies-bee24.firebaseapp.com",
+  databaseURL: "https://movies-bee24-default-rtdb.firebaseio.com",
+  projectId: "movies-bee24",
+  storageBucket: "movies-bee24.appspot.com",
+  messagingSenderId: "1080659811750",
+  appId: "1:1080659811750:web:c1ef7d4dacc3ab17edc367"
+  };
+  
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.database();
+  const storage = firebase.storage();
+  
+  const authSection = document.getElementById('auth-section');
+  const signInForm = document.getElementById('sign-in-form');
+  const signUpForm = document.getElementById('sign-up-form');
+  const showSignUpBtn = document.getElementById('show-sign-up');
+  const authSwitchText = document.getElementById('auth-switch-text');
+  const signInEmail = document.getElementById('sign-in-email');
+  const signInPassword = document.getElementById('sign-in-password');
+  const signUpEmail = document.getElementById('sign-up-email');
+  const signUpPassword = document.getElementById('sign-up-password');
+  const loginBtn = document.getElementById('login-btn');
+  const registerBtn = document.getElementById('register-btn');
+  const logoutBtn = document.getElementById('logout-btn');
+  const userNameSpan = document.getElementById('user-name');
+  const homeSection = document.getElementById('home-section');
+  const loadingAnimation = document.getElementById('loading-animation'); // লোডিং অ্যানিমেশন
+  
+  auth.onAuthStateChanged((user) => {
+  if (user) {
+  authSection.style.display = 'none';
+  homeSection.style.display = 'block';
+  userNameSpan.textContent = user.email;
+  } else {
+  authSection.style.display = 'block';
+  homeSection.style.display = 'none';
+  }
+  });
+  
+  showSignUpBtn.addEventListener('click', () => {
+  signUpForm.style.display = 'block';
+  signInForm.style.display = 'none';
+  authSwitchText.innerHTML = 'Already have an account? <a href="#" id="show-sign-in">Sign In</a>';
+  document.getElementById('show-sign-in').addEventListener('click', () => {
+  signUpForm.style.display = 'none';
+  signInForm.style.display = 'block';
+  authSwitchText.innerHTML = "Don't have an account? <a href='#' id='show-sign-up'>Sign Up</a>";
+  });
+  });
+  
+  loginBtn.addEventListener('click', () => {
+  const email = signInEmail.value;
+  const password = signInPassword.value;
+  
+  // লোডিং অ্যানিমেশন চালু
+  loadingAnimation.style.display = 'block';
+  
+  auth.signInWithEmailAndPassword(email, password)
+  .then(() => {
+  signInEmail.value = '';
+  signInPassword.value = '';
+  loadingAnimation.style.display = 'none'; // লোডিং অ্যানিমেশন বন্ধ
+  })
+  .catch((error) => {
+  alert(error.message);
+  loadingAnimation.style.display = 'none'; // লোডিং অ্যানিমেশন বন্ধ
+  });
+  });
+  
+  registerBtn.addEventListener('click', () => {
+  const email = signUpEmail.value;
+  const password = signUpPassword.value;
+  
+  // লোডিং অ্যানিমেশন চালু
+  loadingAnimation.style.display = 'block';
+  
+  auth.createUserWithEmailAndPassword(email, password)
+  .then(() => {
+  signUpEmail.value = '';
+  signUpPassword.value = '';
+  loadingAnimation.style.display = 'none'; // লোডিং অ্যানিমেশন বন্ধ
+  })
+  .catch((error) => {
+  alert(error.message);
+  loadingAnimation.style.display = 'none'; // লোডিং অ্যানিমেশন বন্ধ
+  });
+  });
+  
+  logoutBtn.addEventListener('click', () => {
+  // লোডিং অ্যানিমেশন চালু
+  loadingAnimation.style.display = 'block';
+  auth.signOut().then(() => {
+  loadingAnimation.style.display = 'none'; // লোডিং অ্যানিমেশন বন্ধ
+  }).catch((error) => {
+  alert(error.message);
+  loadingAnimation.style.display = 'none'; // লোডিং অ্যানিমেশন বন্ধ
+  });
+  });
+  </script>
+  
+  
+  
+  <script type="module">
+  // Firebase Configuration
+  const firebaseConfig = {
+  apiKey: "AIzaSyBsz-82MDaibWnIBUpoykrZHyJW7UMedX8",
+  authDomain: "movies-bee24.firebaseapp.com",
+  databaseURL: "https://movies-bee24-default-rtdb.firebaseio.com",
+  projectId: "movies-bee24",
+  storageBucket: "movies-bee24.appspot.com",
+  messagingSenderId: "1080659811750",
+  appId: "1:1080659811750:web:c1ef7d4dacc3ab17edc367"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.database();
+  const storage = firebase.storage();
+  
+  // Audio for success message
+  const successAudio = new Audio('Success.mp3');
+  
+  // Create Post
+  document.getElementById("create-post").addEventListener("click", () => {
+  const postText = document.getElementById("post-text").value;
+  const postImageFile = document.getElementById("post-image").files[0];
+  const successMessage = document.getElementById("success-message");
+  
+  if (postText || postImageFile) {
+  const newPostRef = db.ref('posts').push();
+  const postData = {
+  userId: auth.currentUser ? auth.currentUser.uid : "guest",
+  text: postText,
+  timestamp: Date.now(),
+  };
+  
+  if (postImageFile) {
+  // Compress image using Compressor.js
+  new Compressor(postImageFile, {
+  quality: 0.6, // Adjust quality (0.6 = 60%)
+  maxWidth: 800, // Maximum width
+  maxHeight: 800, // Maximum height
+  success(result) {
+  // Upload compressed image to Firebase Storage
+  const storageRef = storage.ref(`post_images/${newPostRef.key}`);
+  const uploadTask = storageRef.put(result);
+  
+  uploadTask.on('state_changed', (snapshot) => {
+  // Optionally show progress
+  }, (error) => {
+  console.error("Error uploading post image:", error);
+  }, () => {
+  uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+  postData.imageUrl = downloadURL;
+  newPostRef.set(postData);
+  displaySuccess(successMessage);
+  });
+  });
+  },
+  error(err) {
+  console.error("Error compressing image:", err);
+  }
+  });
+  } else {
+  newPostRef.set(postData);
+  displaySuccess(successMessage);
+  }
+  
+  // Clear the input fields
+  document.getElementById("post-text").value = '';
+  document.getElementById("post-image").value = '';
+  }
+  });
+  
+  function displaySuccess(messageElement) {
+  messageElement.style.display = 'block';
+  successAudio.play();
+  setTimeout(() => {
+  messageElement.style.display = 'none';
+  }, 3000);
+  }
+  </script>
+  
+  
+  
+  
+  
+  
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+  import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+  
+  // Firebase configuration
+  const firebaseConfig = {
+  apiKey: "AIzaSyBsz-82MDaibWnIBUpoykrZHyJW7UMedX8",
+  authDomain: "movies-bee24.firebaseapp.com",
+  databaseURL: "https://movies-bee24-default-rtdb.firebaseio.com",
+  projectId: "movies-bee24",
+  storageBucket: "movies-bee24.appspot.com",
+  messagingSenderId: "1080659811750",
+  appId: "1:1080659811750:web:c1ef7d4dacc3ab17edc367"
+  };
+  
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const auth = getAuth(app);
+  
+  // Fetch user profile data
+  auth.onAuthStateChanged((user) => {
+  if (user) {
+  const userId = user.uid;
+  const userRef = ref(db, `users/${userId}`);
+  
+  get(userRef).then((snapshot) => {
+  if (snapshot.exists()) {
+  const userData = snapshot.val();
+  document.getElementById('profile-photo').src = userData.profilePhoto || 'default-profile.png';
+  document.getElementById('profile-name').textContent = userData.name || 'Anonymous';
+  document.getElementById('profile-email').textContent = userData.email || 'No email provided';
+  } else {
+  console.error("User data not found!");
+  }
+  }).catch((error) => {
+  console.error("Error fetching user data:", error);
+  });
+  } else {
+  console.log("No user is logged in.");
+  }
+  });
+  
+  
+  
+  
+  
+  /* video js ****/
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </script>
+  
+  
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+  import { getDatabase, ref, get, onChildAdded, update, onValue } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+  
+  const firebaseConfig = {
+  apiKey: "AIzaSyBsz-82MDaibWnIBUpoykrZHyJW7UMedX8",
+  authDomain: "movies-bee24.firebaseapp.com",
+  databaseURL: "https://movies-bee24-default-rtdb.firebaseio.com",
+  projectId: "movies-bee24",
+  storageBucket: "movies-bee24.appspot.com",
+  messagingSenderId: "1080659811750",
+  appId: "1:1080659811750:web:c1ef7d4dacc3ab17edc367"
+  };
+  
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const auth = getAuth(app);
+  
+  function relativeTime(timestamp) {
+  const now = Date.now();
+  const diff = Math.floor((now - timestamp) / 1000);
+  if (diff < 60) return `${diff} seconds ago`;
+  if (diff < 3600) return `${Math.floor(diff / 60)} minutes ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)} hours ago`;
+  return `${Math.floor(diff / 86400)} days ago`;
+  }
+  
+  function loadPosts() {
+  const postsRef = ref(db, 'posts');
+  get(postsRef).then((snapshot) => {
+  if (snapshot.exists()) {
+  const postsContainer = document.getElementById('posts-container');
+  postsContainer.innerHTML = '';
+  
+  // Posts কে টাইমস্ট্যাম্প অনুযায়ী সাজানো হচ্ছে
+  const postsArray = [];
+  snapshot.forEach((childSnapshot) => {
+  postsArray.push({ id: childSnapshot.key, data: childSnapshot.val() });
+  });
+  
+  // নতুন পোস্টগুলো উপরে দেখানোর জন্য সোর্ট করা
+  postsArray.sort((a, b) => b.data.timestamp - a.data.timestamp);
+  
+  postsArray.forEach((postItem) => {
+  const post = postItem.data;
+  const postId = postItem.id;
+  
+  const postElement = document.createElement('div');
+  postElement.classList.add('post-card');
+  
+  const userRef = ref(db, `users/${post.userId}`);
+  get(userRef).then((userSnapshot) => {
+  const userData = userSnapshot.val();
+  const userName = userData?.name || 'Anonymous';
+  const userProfilePhoto = userData?.profilePhoto || 'default-profile.png';
+  
+  postElement.innerHTML = `
+  <div class="post-header">
+  <div class="post-user">
+  <img src="${userProfilePhoto}" alt="Profile Photo" />
+  <div>
+  <div class="post-username">${userName}</div>
+  <div class="post-timestamp">${relativeTime(post.timestamp)}</div>
+  </div>
+  </div>
+  <i class="fas fa-ellipsis-h three-dots"></i>
+  </div>
+  <hr>
+  <div class="post-content"><p>${post.text || ''}</p><span class="show-more" id="showMore">Show more</span></div>
+  ${post.imageUrl ? `<div class="post-photo" style="background-image: url(${post.imageUrl});"></div>` : ''}
+  <div class="post-footer">
+  <button class="like-button ${post.likedBy && post.likedBy[auth.currentUser?.uid] ? 'liked' : ''}" onclick="likePost('${postId}')">
+  <i class="fas fa-heart"></i>
+  </button>
+  <div class="like-count">${post.likeCount || 0}</div>
+  <i class="fas fa-share-alt share-button" onclick="sharePost('${postId}')"></i>
+  </div>
+  `;
+  });
+  
+  postsContainer.appendChild(postElement);
+  
+  const postRef = ref(db, `posts/${postId}`);
+  onValue(postRef, (snapshot) => {
+  const updatedPost = snapshot.val();
+  const likeCount = updatedPost.likeCount || 0;
+  const likedBy = updatedPost.likedBy || {};
+  
+  const likeButton = postElement.querySelector('.like-button');
+  const likeCountElement = postElement.querySelector('.like-count');
+  
+  likeButton.classList.toggle('liked', likedBy[auth.currentUser?.uid]);
+  likeCountElement.textContent = likeCount;
+  });
+  });
+  } else {
+  console.log("No posts found!");
+  }
+  }).catch((error) => {
+  console.error("Error fetching posts:", error);
+  });
+  }
+  
+  // Listen for new posts in real-time (without reloading the page)
+  const postsRef = ref(db, 'posts');
+  onChildAdded(postsRef, (data) => {
+  const post = data.val();
+  const postId = data.key;
+  const postElement = document.createElement('div');
+  postElement.classList.add('post-card');
+  
+  const userRef = ref(db, `users/${post.userId}`);
+  get(userRef).then((userSnapshot) => {
+  const userData = userSnapshot.val();
+  const userName = userData?.name || 'Anonymous';
+  const userProfilePhoto = userData?.profilePhoto || 'default-profile.png';
+  
+  postElement.innerHTML = `
+  <div class="post-header">
+  <div class="post-user">
+  <img src="${userProfilePhoto}" alt="Profile Photo" />
+  <div>
+  <div class="post-username">${userName}</div>
+  <div class="post-timestamp">${relativeTime(post.timestamp)}</div>
+  </div>
+  </div>
+  <i class="fas fa-ellipsis-h three-dots"></i>
+  </div>
+  <hr>
+  <div class="post-content"><p>${post.text || ''}</p><span class="show-more" id="showMore">Show more</span></div>
+  ${post.imageUrl ? `<div class="post-photo" style="background-image: url(${post.imageUrl});"></div>` : ''}
+  <div class="post-footer">
+  <button class="like-button ${post.likedBy && post.likedBy[auth.currentUser?.uid] ? 'liked' : ''}" onclick="likePost('${postId}')">
+  <i class="fas fa-heart"></i>
+  </button>
+  <div class="like-count">${post.likeCount || 0}</div>
+  <i class="fas fa-share-alt share-button" onclick="sharePost('${postId}')"></i>
+  </div>
+  `;
+  });
+  
+  document.getElementById('posts-container').prepend(postElement);
+  });
+  
+  window.likePost = function(postId) {
+  const user = auth.currentUser;
+  if (!user) return;
+  
+  const postRef = ref(db, `posts/${postId}`);
+  get(postRef).then((snapshot) => {
+  if (snapshot.exists()) {
+  const post = snapshot.val();
+  const userId = user.uid;
+  
+  const likedBy = post.likedBy || {};
+  const likeCount = post.likeCount || 0;
+  
+  if (likedBy[userId]) {
+  delete likedBy[userId];
+  update(postRef, { likedBy, likeCount: likeCount - 1 });
+  } else {
+  likedBy[userId] = true;
+  update(postRef, { likedBy, likeCount: likeCount + 1 });
+  }
+  }
+  });
+  };
+  
+  window.sharePost = function(postId) {
+  alert(`Share functionality for post ${postId} will be implemented.`);
+  };
+  
+  auth.onAuthStateChanged(() => loadPosts());
+  </script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!-- Bootstrap JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  
+  
+  
+  
+  
+  
+</body>
+</html>

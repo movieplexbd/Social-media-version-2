@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  
+  
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- FontAwesome -->
+  
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fefefe;
+      margin: 0;
+      padding: 0;
+    }
+    .profile-container {
+      max-width: 800px;
+      margin: auto;
+      background-color: white;
+      border-radius: 10px;
+      padding:2px;
+      
+      
+    }
+
+    /* Cover Photo Section */
+    .cover-photo {
+      height: 200px;
+      width: 100%;
+      background-color: #d8d8d8;
+      
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      
+    }
+
+    /* Profile Photo Section */
+    .profile-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 5px solid white;
+      position: absolute;
+      top: 170px;
+      left: 25%;
+      transform: translateX(-50%);
+      background-color: #cccccc;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .user-info {
+      margin-top:45px;
+      margin-left:30px;
+      padding:10px;
+    }
+    .user-info h2 {
+      margin: 10px 0;
+      color:#444;
+    }
+    .user-info p {
+      color: gray;
+      
+    }
+
+    .edit-btn,.flowing{
+      background-color: #d67968;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin:0 0px;
+    }
+    
+   .flowing{
+   
+   margin-left :70px;
+   
+   }
+    
+    .edit-btn:hover {
+      background-color: #365899;
+    }
+    
+    
+    
+   .details-section{
+   
+   padding:20px;
+   background:#fefefe;
+   border-radius:5px;
+   border:1px solid #ddd;
+   
+   
+   }
+
+
+
+
+
+
+
+h4{
+
+background:#fff;
+padding:10px;
+margin:0px;
+font-size:22px;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index :1000;
+  color:#666;
+}
+
+
+
+
+    .post-card {
+    border: 1px solid #ddd;
+    margin-bottom:10px;
+    padding: 10px;
+    width:94%;
+    background: #fefefe;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+    
+    .post-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    }
+    
+    .post-user {
+    display: flex;
+    align-items: center;
+    }
+    
+    .post-username {
+    font-weight: bold;
+    }
+    
+    .post-timestamp {
+    font-size: 12px;
+    color: #777;
+    }
+    
+    .post-content {
+    margin-top: 10px;
+    overflow: auto;
+    width: 100%;
+    box-sizing: border-box;
+    padding:2px;
+    }
+    
+    .post-photo {
+    margin-top: 10px;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 300px;
+    border-radius: 5px;
+    }
+    
+    .post-footer {
+    margin-top: 10px;
+    text-align: right;
+    display: flex;
+    justify-content: spce-between;
+    align-items: center;
+    }
+    
+    .like-button {
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #ddd;
+    Border-radius:10px;
+    border: none;
+    color: #666;
+    font-size: 22px;
+    float:right;
+    }
+    
+    .like-button.liked {
+    color:red;
+    }
+    
+    .like-count {
+    background-color: tomato;
+    color: white;
+    margin:0 2px;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height:25px;
+    }
+    
+    .three-dots {
+    cursor: pointer;
+    }
+    a{
+    
+    text-decoration:none;
+    color:#fdfdfd;
+    
+    }
+    .share-button {
+    color: #555;
+    cursor: pointer;
+    margin-left:60%;
+    background:#ddd;
+    padding:10px 20px;
+    border-radius:5px;
+    }
+    
+    p {
+    color:#333;
+    word-wrap: break-word;
+    }
+    
+    .camera-btn {
+    position: absolute;
+    bottom: 10px;
+    border: 2px solid white;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    }
+    
+   .post-before::before{
+   
+   
+   content:'|';
+   color:tomato;
+   padding:2px;
+   
+   }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 20px 10px;
+    }
+    .header span {
+    font-size: 18px;
+    font-weight: bold;
+    }
+    .header button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    }
+    .header button:hover {
+    background-color: #0056b3;
+    }
+    .friend-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin: 0 auto;
+    max-width: 500px;
+    background-color: #fff;
+    border-radius: 10px;
+    
+    padding:10px;
+    box-shado: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .friend-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    width: 130px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .friend-card img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    }
+    .friend-card h3 {
+    font-size: 12px;
+    color: #333;
+    margin: 8px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    }
+    
+    
+   
+  </style>
+</head>
+<body>
+<h4>  Welcome - man❓ </h4>
+
+<button
+  style="
+    backgrond-color: tomato;
+    color:tomato;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    position:fixed;
+    top:8px;
+    right:10px;
+  "
+  onclick="if (document.referrer) { window.location.href = document.referrer; } else { window.history.back(); }"
+>
+<i class="fa-solid fa-reply"></i>
+
+
+  Back
+</button>
+
+  <div class="profile-container">
+  <!-- Cover Photo Section -->
+  <div class="cover-photo" id="cover-photo">
+  <button class="camera-btn" id="upload-cover-photo"><i class="fas fa-camera"></i>
+  </button>
+  </div>
+  <!-- Profile Photo Section -->
+  <div class="profile-photo" id="profile-photo">
+  <button class="camera-btn" id="upload-profile-photo"><i class="fas fa-camera"></i>
+  
+  </button>
+  </div>
+  <div class="user-info">
+  <h2 id="user-name">Name</h2>
+  <p id="user-email">Username</p>
+  <button class="edit-btn" id="edit-profile"><a href="update.html" >Edit Profile</a></button><button class="flowing">Following</button>
+  </div>
+  
+  <!-- Details Section -->
+ <div class="details-section">
+ <h3>Details</h3>
+ <p>
+ <strong><i class="fa fa-user" style="margin-right: 5px;"></i> Username:</strong> 
+ <span id="user-username">....</span>
+ </p>
+ <p>
+ <strong><i class="fa fa-info-circle" style="margin-right: 5px;"></i> Bio:</strong> 
+ <span id="user-bio">....</span>
+ </p>
+ <p>
+ <strong><i class="fa fa-phone" style="margin-right: 5px;"></i> Phone Number:</strong> 
+ <span id="user-phone">*****</span>
+ </p>
+ <p>
+ <strong><i class="fa fa-birthday-cake" style="margin-right: 5px;"></i> Date of birth:</strong> 
+ <span id="user-date">....</span>
+ </p>
+ </div>
+ 
+  
+  
+  <!--friends section-->
+  
+  <div class="header">
+  <span id="totalFriends">Total Friends: 0</span>
+  <button onclick="seeAllFriends()">See All</button>
+  </div>
+  <div class="friend-box">
+  <!-- Friends will load here -->
+  </div>
+  
+  
+    
+
+
+   
+
+    <!-- Display Posts Section -->
+    <h1 class="post-before">Your Posts</h1>
+    <div id="posts-container"></div>
+</div>
+  
+
+  <!-- Firebase and Script for Profile Management -->
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-storage-compat.js"></script>
+  
+  
+  
+  <script>
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBsz-82MDaibWnIBUpoykrZHyJW7UMedX8",
+      authDomain: "movies-bee24.firebaseapp.com",
+      databaseURL: "https://movies-bee24-default-rtdb.firebaseio.com",
+      projectId: "movies-bee24",
+      storageBucket: "movies-bee24.appspot.com",
+      messagingSenderId: "1080659811750",
+      appId: "1:1080659811750:web:c1ef7d4dacc3ab17edc367"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+    const storage = firebase.storage();
+
+    const userNameElement = document.getElementById("user-name");
+    const userEmailElement = document.getElementById("user-email");
+    const userUsernameElement = document.getElementById("user-username");
+    const userBioElement = document.getElementById("user-bio");
+    const userPhoneElement = document.getElementById("user-phone");
+    const userDatElement = document.getElementById("user-date");
+    
+    
+    const profilePhotoElement = document.getElementById("profile-photo");
+    const coverPhotoElement = document.getElementById("cover-photo");
+    const postsContainer = document.getElementById("posts-container");
+
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        userEmailElement.textContent = user.email;
+        db.ref(`users/${user.uid}`).once("value").then((snapshot) => {
+          const userData = snapshot.val();
+          userNameElement.textContent = userData.name || "No Name Set";
+          userUsernameElement.textContent = userData.username || "No Username Set";
+          userBioElement.textContent = userData.bio || "No Bio Set";userBioElement.textContent = userData.bio || "No Bio Set";
+          userPhoneElement.textContent = userData.phone || "No phone number Set";
+          userDatElement.textContent = userData.dob || "No Bio Set";
+          
+          
+
+          // Load Profile Photo
+          if (userData.profilePhoto) {
+            profilePhotoElement.style.backgroundImage = `url(${userData.profilePhoto})`;
+          }
+
+          // Load Cover Photo
+          if (userData.coverPhoto) {
+            coverPhotoElement.style.backgroundImage = `url(${userData.coverPhoto})`;
+          }
+        });
+        loadPosts(user.uid);
+      } else {
+        window.location.href = "index.html";
+      }
+    });
+    
+    
+    // Upload Profile Photo
+    document.getElementById("upload-profile-photo").addEventListener("click", () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e) => {
+    const file = e.target.files[0];
+    const storageRef = storage.ref(`profile_photos/${auth.currentUser.uid}`);
+    storageRef.put(file).then(() => {
+    storageRef.getDownloadURL().then(url => {
+    profilePhotoElement.style.backgroundImage = `url(${url})`;
+    // Save photo URL in the user profile
+    db.ref(`users/${auth.currentUser.uid}`).update({ profilePhoto: url });
+    });
+    });
+    };
+    input.click();
+    });
+    
+    // Upload Cover Photo
+    document.getElementById("upload-cover-photo").addEventListener("click", () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e) => {
+    const file = e.target.files[0];
+    const storageRef = storage.ref(`cover_photos/${auth.currentUser.uid}`);
+    storageRef.put(file).then(() => {
+    storageRef.getDownloadURL().then(url => {
+    coverPhotoElement.style.backgroundImage = `url(${url})`;
+    // Save cover photo URL in the user profile
+    db.ref(`users/${auth.currentUser.uid}`).update({ coverPhoto: url });
+    });
+    });
+    };
+    input.click();
+    });
+    
+   
+    </script>
+        
+        <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getDatabase, ref, get, update, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        import { getStorage } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
+        
+        const firebaseConfig = {
+        apiKey: "AIzaSyBsz-82MDaibWnIBUpoykrZHyJW7UMedX8",
+        authDomain: "movies-bee24.firebaseapp.com",
+        databaseURL: "https://movies-bee24-default-rtdb.firebaseio.com",
+        projectId: "movies-bee24",
+        storageBucket: "movies-bee24.appspot.com",
+        messagingSenderId: "1080659811750",
+        appId: "1:1080659811750:web:c1ef7d4dacc3ab17edc367",
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const auth = getAuth(app);
+        const storage = getStorage(app);
+        
+        let userId = null;
+        
+        function relativeTime(timestamp) {
+        const now = Date.now();
+        const diff = Math.floor((now - timestamp) / 1000);
+        if (diff < 60) return `${diff} seconds ago`;
+        if (diff < 3600) return `${Math.floor(diff / 60)} minutes ago`;
+        if (diff < 86400) return `${Math.floor(diff / 3600)} hours ago`;
+        return `${Math.floor(diff / 86400)} days ago`;
+        }
+        
+        function loadPosts() {
+        const postsRef = ref(db, "posts");
+        
+        if (userId) {
+        get(postsRef).then((snapshot) => {
+        if (snapshot.exists()) {
+        const postsContainer = document.getElementById("posts-container");
+        postsContainer.innerHTML = "";
+        let count = 0;
+        
+        snapshot.forEach((childSnapshot) => {
+        if (count >= 4) return; // সর্বোচ্চ ৪টি কার্ড দেখানো হবে
+        const post = childSnapshot.val();
+        const postId = childSnapshot.key;
+        
+        if (post.userId === userId) {
+        count++;
+        const postElement = document.createElement("div");
+        postElement.classList.add("post-card");
+        
+        const userRef = ref(db, `users/${post.userId}`);
+        get(userRef).then((userSnapshot) => {
+        const userData = userSnapshot.val();
+        const userName = userData?.name || "Anonymous";
+        const userProfilePhoto =
+        userData?.profilePhoto || "default-profile.png";
+        
+        postElement.innerHTML = `
+        <div class="post-header">
+        <div class="post-user">
+        <img src="${userProfilePhoto}" alt="Profile Photo" />
+        <div>
+        <div class="post-username">${userName}</div>
+        <div class="post-timestamp">${relativeTime(
+        post.timestamp
+        )}</div>
+        </div>
+        </div>
+        <i class="fas fa-ellipsis-h three-dots"></i>
+        </div><hr>
+        <div class="post-content"><p>${post.text || ""}</p></div>
+        ${
+        post.imageUrl
+        ? `<div class="post-photo" style="background-image: url(${post.imageUrl});"></div>`
+        : ""
+        }
+        <div class="post-footer">
+        <button class="like-button ${
+        post.likedBy && post.likedBy[userId] ? "liked" : ""
+        }" onclick="likePost('${postId}')">
+        <i class="fas fa-heart"></i>
+        </button>
+        <div class="like-count">${post.likeCount || 0}</div>
+        <i class="fas fa-share-alt share-button" onclick="sharePost('${postId}')"></i>
+        </div>
+        `;
+        });
+        
+        postsContainer.appendChild(postElement);
+        }
+        });
+        } else {
+        console.log("No posts found!");
+        }
+        });
+        } else {
+        document.getElementById("posts-container").innerHTML =
+        "<p>Please log in to view your posts.</p>";
+        }
+        }
+        
+        function loadFriends() {
+        const friendContainer = document.querySelector(".friend-box");
+        const totalFriends = document.getElementById("totalFriends");
+        const friendsRef = ref(db, `users/${userId}/friends`);
+        
+        onValue(friendsRef, (snapshot) => {
+        const friends = snapshot.val();
+        friendContainer.innerHTML = "";
+        let count = 0;
+        
+        if (!friends) {
+        totalFriends.textContent = "Total Friends: 0";
+        friendContainer.innerHTML = "<p>No friends yet.</p>";
+        return;
+        }
+        
+        for (let friendId in friends) {
+        if (count >= 4) break; // সর্বোচ্চ ৪টি কার্ড দেখানো হবে
+        if (friends[friendId] === "accepted") {
+        count++;
+        onValue(ref(db, `users/${friendId}`), (userSnap) => {
+        const user = userSnap.val();
+        const profilePhoto =
+        user?.profilePhoto || "default-profile.png"; // ডিফল্ট ছবি
+        const name = user?.name || "Unknown";
+        
+        friendContainer.innerHTML += `
+        <div class="friend-card">
+        <img src="${profilePhoto}" alt="${name}" />
+        <h3>${name}</h3>
+        </div>
+        `;
+        });
+        }
+        }
+        
+        totalFriends.textContent = `Total Friends: ${Object.keys(friends).length}`;
+        });
+        }
+        
+        window.likePost = function (postId) {
+        const postRef = ref(db, `posts/${postId}`);
+        get(postRef).then((snapshot) => {
+        if (snapshot.exists()) {
+        const post = snapshot.val();
+        const likedBy = post.likedBy || {};
+        const likeCount = post.likeCount || 0;
+        
+        if (likedBy[userId]) {
+        delete likedBy[userId];
+        update(postRef, { likedBy, likeCount: likeCount - 1 });
+        } else {
+        likedBy[userId] = true;
+        update(postRef, { likedBy, likeCount: likeCount + 1 });
+        }
+        }
+        });
+        };
+        
+        window.sharePost = function (postId) {
+        alert(`Share functionality for post ${postId} will be implemented.`);
+        };
+        
+        onAuthStateChanged(auth, (user) => {
+        if (user) {
+        userId = user.uid;
+        loadPosts();
+        loadFriends();
+        } else {
+        document.getElementById("posts-container").innerHTML =
+        "<p>Please log in to view your posts.</p>";
+        }
+        });
+        </script>
+        <script>
+        function seeAllFriends() {
+        // Redirect to a page where all friends are displayed.
+        window.location.href = "friend-list.html";
+        }
+        </script>
+        </body>
+        </html>
