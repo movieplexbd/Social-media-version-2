@@ -853,6 +853,24 @@
   };
   
   auth.onAuthStateChanged(() => loadPosts());
+
+  // Firebase Authentication এবং Realtime Database ব্যবহার ধরে নিচ্ছি
+  firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+  const userId = user.uid; // লগইন করা ইউজারের ID
+  firebase.database().ref('users/' + userId).once('value').then((snapshot) => {
+  const userName = snapshot.val()?.name; // নাম চেক করা
+  if (!userName || userName.trim() === "") {
+  // নাম সেভ না থাকলে update.html এ রিডাইরেক্ট করা
+  window.location.href = 'update.html';
+  }
+  }).catch((error) => {
+  console.error('Error checking user name:', error);
+  });
+  } else {
+  console.log('User not logged in');
+  }
+  });
   </script>
   
   
